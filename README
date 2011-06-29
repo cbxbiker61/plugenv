@@ -1,0 +1,21 @@
+This is a utility to list or modify the SheevaPlug u-boot environment.
+
+Quite a bit of error checking occurs when the program runs, so it should be relatively safe.
+
+When you use "plugenv -e" it will open the current environment with vi (or any other editor
+if the EDITOR environment variable is set).  It will only update the uboot-env if you write
+changes with your editor, otherwise no write to nand occurs.
+
+"plugenv -l" will list the current uboot-env.  If this command runs properly on your plug
+then you can pretty comfortable that a uboot-env write will succeed.
+
+plugenv calls mtd-utils programs, keep in mind that bugs in mtd-utils certainly could
+cause problems. I am currently using mtd-utils 1.4.4.
+
+plugenv currently verifies that it is on a SheevaPlug by reading /proc/cpuinfo.  If you
+find that you can get it to run on the "SheevaPlug like" plugs please send patches to
+cbxbiker61@gmail.com.  You will probably have to patch the section of code that looks
+for "SheevaPlug" in /proc/cpuinfo.
+
+Read COPYING for licensing info.
+

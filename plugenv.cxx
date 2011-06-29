@@ -267,7 +267,16 @@ void write(const string &mtdDev, const string &envFile)
 
 string getEnvString(const string &mtdDev)
 {
-	u8string s(getOutput("nanddump -q -n -s 0xa0000 -l 0x20000 " + mtdDev));
+	string verS(getOutputString("nanddump --version").substr(9, 4));
+	float ver(atof(verS.c_str()));
+	string cmd;
+
+	if ( ver > 1.30 )
+		cmd = "nanddump -q --bb=padbad --oob -n -s 0xa0000 -l 0x20000 " + mtdDev;
+	else
+		cmd = "nanddump -q -n -s 0xa0000 -l 0x20000 " + mtdDev;
+
+	u8string s(getOutput(cmd));
 	return decodeEnvText(decodeNandRs(s));
 }
 

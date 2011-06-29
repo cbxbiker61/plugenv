@@ -14,7 +14,7 @@ cause problems. I am currently using mtd-utils 1.4.4.
 
 plugenv currently verifies that it is on a SheevaPlug by reading /proc/cpuinfo.  If you
 find that you can get it to run on the "SheevaPlug like" plugs please send patches to
-cbxbiker61@gmail.com.  You will probably have to patch the section of code that looks
+cbxbiker61-AT-gmail-DOT-com.  You will probably have to patch the section of code that looks
 for "SheevaPlug" in /proc/cpuinfo.
 
 Read COPYING for licensing info.

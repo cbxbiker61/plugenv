@@ -20,7 +20,7 @@
 using namespace std;
 
 namespace {
-const char programVersion[] = "plugenv version 1.0";
+const char programVersion[] = "plugenv version 1.1";
 
 void usage(const string &progname)
 {
@@ -232,6 +232,23 @@ void edit(const string &mtdDev)
 		write(mtdDev, tmpFilEnv);
 }
 
+string getWriteCmd(const string &mtdDev, const string &filename)
+{
+	string nd(getOutputString("nandwrite --version"));
+	int v1(atoi(nd.substr(10, 1).c_str()));
+	int v2(atoi(nd.substr(12, 1).c_str()));
+	int v3(atoi(nd.substr(14, 1).c_str()));
+
+	string cmd("nandwrite ");
+
+	if ( (v1 < 1) || (v2 < 4) ||  (v3 < 7) )
+		cmd += "-f ";
+
+	cmd += "-n -o -s 0xa0000 " + mtdDev + " " + filename;
+
+	return cmd;
+}
+
 void write(const string &mtdDev, const string &envFile)
 {
 	string tmpFilNand("/tmp/UBoot-Env.nand");
@@ -256,8 +273,7 @@ void write(const string &mtdDev, const string &envFile)
 	}
 
 	string eraseCmd = "flash_erase " + mtdDev + " 0xa0000 1";
-	string writeCmd = "nandwrite -f -n -o -s 0xa0000 "
-			+ mtdDev + " " + tmpFilNand;
+	string writeCmd(getWriteCmd(mtdDev, tmpFilNand));
 
 	cout << eraseCmd << endl;
 	cout << getOutputString(eraseCmd) << endl;

@@ -10,7 +10,8 @@ changes with your editor, otherwise no write to nand occurs.
 then you can pretty comfortable that a uboot-env write will succeed.
 
 plugenv calls mtd-utils programs, keep in mind that bugs in mtd-utils certainly could
-cause problems. I am currently using mtd-utils 1.4.5 and have tested with 1.4.4.
+cause problems. I have tested versions 1.4.4 to 1.4.9.
+
 
 plugenv currently verifies that it is on a SheevaPlug by reading /proc/cpuinfo.  If you
 find that you can get it to run on the "SheevaPlug like" plugs please send patches to
